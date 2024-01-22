@@ -9,6 +9,7 @@ register(
     reward_threshold=1.0,
 )
 
+
 try:
     import carla
 
@@ -83,3 +84,7 @@ except:
     logging.error(
         "Block pushing could not be imported. Make sure you have PyBullet installed."
     )
+
+import envs.stopsign.stopsign
+import envs.stopsign.labelstopsign
+import envs.merge.merge

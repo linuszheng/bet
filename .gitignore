@@ -25,3 +25,6 @@ bin/
 etc/
 lib/
 share/
+
+# data files
+bet_data_release/
