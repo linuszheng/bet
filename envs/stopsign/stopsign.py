@@ -1,7 +1,7 @@
 import numpy as np
 import gym
 from gym import spaces
-from .settings import numHA, n_timesteps, pv_stddev
+from .settings import numHA, n_timesteps, pv_stddev, motor_model
 
 
 EPSILON = 10E-10
@@ -19,9 +19,9 @@ class StopSignEnv(gym.Env):
       self.accMax = 6.
       self.vMax = 10.
       self.target = 100.
-      self.observation_space = spaces.Box( low=np.array([0, -40, 0, 0, 0, 100]), 
-                                  high=np.array([150, 0, 40, 250, 250, 100]), 
-                                  shape=(6,), dtype=np.float32)
+      self.observation_space = spaces.Box( low=np.array([0, -40, 0, 0, 0, 100] + [-40]*4), 
+                                  high=np.array([150, 0, 40, 250, 250, 100] + [40]*4), 
+                                  shape=(10,), dtype=np.float32)
       self.action_space = spaces.Box(shape=(1,), low=np.array([-40]), high=np.array([40]), dtype=np.float32)
       self.t = 0
       self.action_list = []
@@ -36,7 +36,8 @@ class StopSignEnv(gym.Env):
       return { }
 
     def _get_obs(self):
-      lim_obs = [self.pos, self.decMax, self.accMax, self.vMax, self.vel, self.target]
+      lim_obs = [self.pos, self.decMax, self.accMax, self.vMax, self.vel, self.target, self.acc]
+      lim_obs = lim_obs + motor_model(lim_obs)
       return np.array(lim_obs, dtype=np.float32)
 
 
@@ -51,7 +52,7 @@ class StopSignEnv(gym.Env):
 
     def step(self, action):
       prev_vel = self.vel
-      self.acc = action + np.random.normal(0, pv_stddev)[0]
+      self.acc = action
       self.vel = self.vel+self.acc*self.dt
       if self.vel < EPSILON:
         self.vel = 0
@@ -60,12 +61,15 @@ class StopSignEnv(gym.Env):
       if abs(self.pos - self.target) < EPSILON:
         self.pos = self.target
       self.pos += (prev_vel + self.vel)*.5*self.dt
+      if self.t == 0:
+        self.acc = 1.
       self.t += 1
       self.action_list.append(self.acc)
+      print(self.acc)
       return self._get_obs(), 0, self.t > n_timesteps, self._get_info()
 
     def render(self, mode="human"):
-      print(f"{self.t} {self.pos} {self.vel} {self.acc}")
+      print(self._get_obs())
     
     def close(self):
       # print(self.action_list)

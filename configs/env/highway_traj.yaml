@@ -1,0 +1,21 @@
+name: labelhighway-v0
+# name: highway-v0
+obs_dim: 30
+action_dim: 2
+action_min: [-.3, -30]
+action_max: [.3, 30]
+
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/121925_highway_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/122347_highway_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/122438_highway_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/124746_highway_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/131838_highway_train"
+load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/141202_highway_train"
+
+workspace:
+  _target_: workspaces.highway.HighwayWorkspace
+
+dataset_fn:
+  _target_: dataloaders.trajectory_loader.get_push_train_val
+  data_directory: ${env_vars.datasets.merge}
+  window_size: ${window_size}

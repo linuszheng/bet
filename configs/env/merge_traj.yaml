@@ -1,10 +1,16 @@
-name: merge-v0
-obs_dim: 5
+name: labelmerge-v0
+# name: merge-v0
+obs_dim: 30
 action_dim: 2
-action_min: null
-action_max: null
+action_min: [-.3, -30]
+action_max: [.3, 30]
 
-load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.19/113918_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/173747_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/175018_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/181911_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/230317_merge_train"
+load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/234111_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/001024_merge_train"
 
 workspace:
   _target_: workspaces.merge.MergeWorkspace

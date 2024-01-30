@@ -4,3 +4,6 @@ datasets:
   multimodal_push_fixed_target: /home/linusjz/bet2/bet/bet_data_release/blockpush
   stopsign: /home/linusjz/bet2/bet/plunder_data_release/e-1d-ss
   merge: /home/linusjz/bet2/bet/plunder_data_release/a-2d-merge-easy
+  highway: /home/linusjz/bet2/bet/plunder_data_release/f-2d-highway
+  pickplace: /home/linusjz/bet2/bet/plunder_data_release/g-pick-place-policy
+  stack: /home/linusjz/bet2/bet/plunder_data_release/i-stack

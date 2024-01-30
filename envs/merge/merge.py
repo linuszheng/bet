@@ -110,15 +110,24 @@ class MergeEnv(AbstractEnv):
         return [seed]
     
     def reset(self):
+        self.last_action = [0., 0.]
         return super().reset()[0]
     
     def step(self, action):
         res = super().step(action)
+        self.last_action = action
         return (res[0], res[1], res[2] or res[3], res[4])
 
+
     def render(self, mode="human"):
-      print(self.observation_type.get_lane())
-      pass
+        if not hasattr(self, "n_success"):
+            self.n_success = 0.
+        if self.time*self.config["policy_frequency"] >= self.config["duration"]-1:
+            print(f"{self.road.vehicles[0].crashed} {self.road.vehicles[0].on_road} {self.observation_type.get_lane()}")
+            if (not self.road.vehicles[0].crashed) and (self.road.vehicles[0].on_road) and (self.observation_type.get_lane()==5):
+                self.n_success += 1.
+            print(f"{self.n_success / 100.}")
+        
     
     def close(self):
       pass

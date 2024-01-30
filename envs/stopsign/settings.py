@@ -24,12 +24,11 @@ la_idx_wrt_all_obs = [1]
 features_idx = [0, 1, 2, 3, 4, 5]
 
 
-def motor_model(obs, la):
-    a = [min(la[0] + 1, obs[2])]
-    if la[0] < 0:
-        b = [min(la[0] + 1, obs[2])]
+def motor_model(info):
+    a = min(info[6] + 1, info[2])
+    if info[6] < 0:
+        b = min(info[6] + 1, info[2])
     else:
-        b = [max(la[0] - 1, obs[1])]
-    c = [max(la[0] - 1, obs[1])]
-    return [a, b, c]
-
+        b = max(info[6] - 1, info[1])
+    c = max(info[6] - 1, info[1])
+    return [a,b,c]
