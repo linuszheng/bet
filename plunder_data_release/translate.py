@@ -4,7 +4,7 @@
 
 import pandas as pd
 import numpy as np
-from settings_e import fname, N_t, obs_headers, acts_headers, mm_headers, ha_headers, train_or_test, motor_model, pv_stddev, train_end, test_end
+from settings_j import fname, N_t, obs_headers, acts_headers, mm_headers, ha_headers, train_or_test, motor_model, pv_stddev, train_end, test_end
 from scipy.stats import norm
 
 def get_err(a, b, stdev):
@@ -111,7 +111,8 @@ for i in range(obs_all.shape[0]):
     mm_end = int(N_obs-N_mm+N_acts*(ha+1))
     noiseless_act = obs_all[i,j,mm_start:mm_end]
     noisy_act = acts_all[i,j,:]
-    sum_ll += np.sum(get_err(noisy_act, noiseless_act, pv_stddev))
+    err = np.sum(get_err(noisy_act, noiseless_act, pv_stddev))
+    sum_ll += err
   sum_sum_ll += sum_ll
   print(sum_ll / obs_all.shape[1])
 print("Overall likelihood of ground truth policy")

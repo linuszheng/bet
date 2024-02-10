@@ -12,10 +12,10 @@ device: cuda
 seed: 42
 load_dir: ${env.load_dir}
 # Length of history
-window_size: 1
+window_size: 3
 
 # Environment running setup
-num_eval_eps: 20
+num_eval_eps: 100
 action_batch_size: 1
 num_eval_steps: 400
 use_state_prior: True

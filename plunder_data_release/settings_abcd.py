@@ -1,7 +1,8 @@
 import numpy as np
 
 
-fname = "a-2d-merge-easy"
+# fname = "a-2d-merge-easy"
+fname = "b-2d-merge-medium-large"
 # fname = "b-2d-merge-medium"
 # fname = "c-2d-merge-hard"
 # fname = "d-2d-merge-impossible"
@@ -10,14 +11,14 @@ obs_headers = ["x", "y", "vx", "vy", "heading", "l_x", "l_y", "l_vx", "l_vy", "l
 acts_headers = ["LA.acc", "LA.steer"]
 mm_headers = ["mm.a1", "mm.a2", "mm.b1", "mm.b2", "mm.c1", "mm.c2", "mm.d1", "mm.d2"]
 ha_headers = ["HA"]
-train_or_test = 2
-train_end = 10
+train_or_test = 0
+train_end = 30
 test_end = 30
 
 # pv_stddev = [0.005, 0.5]
-# pv_stddev = [0.01, 1.0]
+pv_stddev = [0.01, 1.0]
 # pv_stddev = [0.02, 2.0]
-pv_stddev = [0.03, 3.0]
+# pv_stddev = [0.03, 3.0]
 
 
 

@@ -11,16 +11,17 @@ def get_err(a, b, stdev):
   return norm(a, stdev).logpdf(b)
 
 fn = "f-2d-highway"
+clip_ll = -100.
 
 class LabelHighwayEnv(gym.Env):
 
     def __init__(self):
-      # self.obs_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_observations.npy")
-      # self.acts_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_actions.npy")
-      # self.ha_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_ha.npy")
-      self.obs_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_observations.npy")
-      self.acts_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_actions.npy")
-      self.ha_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_ha.npy")
+      self.obs_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_observations.npy")
+      self.acts_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_actions.npy")
+      self.ha_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/validation_ha.npy")
+      # self.obs_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_observations.npy")
+      # self.acts_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_actions.npy")
+      # self.ha_all = np.load(f"/home/linusjz/bet2/bet/plunder_data_release/{fn}/multimodal_push_ha.npy")
       self.N = self.acts_all.shape[0]
       self.t = 0
       self.observation_space = spaces.Box(                   low=np.array(
@@ -30,8 +31,8 @@ class LabelHighwayEnv(gym.Env):
                                   shape=(30,), dtype=np.float32)
       self.action_space = spaces.Box(shape=(2,), low=np.array([-.3, -30]), high=np.array([.3, 30]), dtype=np.float32)
       self.max_t = self.acts_all.shape[1]
-      self.ll = np.empty(self.acts_all.shape[0:2])
-      self.acts = np.empty(self.acts_all.shape)
+      self.ll = np.zeros(self.acts_all.shape[0:2])
+      self.acts = np.zeros(self.acts_all.shape)
       self.n = -1
       self.initial_last_act = np.zeros(self.acts_all.shape[1])
 
@@ -57,8 +58,8 @@ class LabelHighwayEnv(gym.Env):
     def step(self, action):
       desired_action = self._get_desired_act()
       ll = np.sum(get_err(action, desired_action, pv_stddev))
-      if ll < -10.:
-        ll = -10.
+      if ll < clip_ll:
+        ll = clip_ll
       self.ll[self.n][self.t] = ll
       self.acts[self.n][self.t] = action
       self.t += 1
@@ -76,6 +77,7 @@ class LabelHighwayEnv(gym.Env):
       print(np.average(self.ll))
       pass
     
+
 
 
 

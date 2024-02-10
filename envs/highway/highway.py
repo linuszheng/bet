@@ -7,19 +7,16 @@ from highway_env.vehicle.kinematics import Vehicle
 from highway_env import utils
 from typing import Dict, Text
 from gym.utils import seeding
-from .settings import pv_stddev, initialHA, initialLA, lanes_count, _n_timesteps
+from .settings import pv_stddev, _n_timesteps, motor_model
 import gym
-from .my_spaces import new_define_spaces
+from scipy.stats import norm
+import numpy as np
 
 
-from highway_env.envs.common.abstract import AbstractEnv
-from highway_env.envs.common.observation import KinematicObservation
-KinematicObservation.normalize_obs = lambda self, df: df
-AbstractEnv.define_spaces = new_define_spaces
-
+def get_err(a, b, stdev):
+  return norm(a, stdev).logpdf(b)
 
 class HighwayEnv(AbstractEnv):
-    
     @classmethod
     def default_config(cls) -> dict:
         config = super().default_config()
@@ -30,10 +27,10 @@ class HighwayEnv(AbstractEnv):
             "action": {
                 "type": "DiscreteMetaAction",
             },
-            "lanes_count": lanes_count,
+            "lanes_count": 8,
             "vehicles_count": 50,
             "controlled_vehicles": 1,
-            "initial_lane_id": 0,
+            "initial_lane_id": None,
             "duration": _n_timesteps,  # [s]
             "ego_spacing": 2,
             "vehicles_density": 1,
@@ -49,23 +46,12 @@ class HighwayEnv(AbstractEnv):
             "normalize_reward": True,
             "offroad_terminal": False
         })
-
-
-
         return config
-
-    repo = {}
-
-    def _create_repo(self):
-        self.repo = {
-            "la": initialLA,
-            "ha": initialHA
-          }
 
     def _reset(self) -> None:
         self._create_road()
         self._create_vehicles()
-        self._create_repo()
+
 
     def _create_road(self) -> None:
         self.road = Road(network=RoadNetwork.straight_road_network(self.config["lanes_count"], speed_limit=30),
@@ -114,23 +100,28 @@ class HighwayEnv(AbstractEnv):
         return super().reset()[0]
     
     def step(self, action):
+        other_options = self.observation_type.observe()[-8:]
+        opt1 = get_err(action, other_options[0:2], pv_stddev).sum()
+        opt2 = get_err(action, other_options[2:4], pv_stddev).sum()
+        opt3 = get_err(action, other_options[4:6], pv_stddev).sum()
+        opt4 = get_err(action, other_options[6:8], pv_stddev).sum()
+        opt_errors = np.array([opt1, opt2, opt3, opt4])
+        action_i = np.argmax(opt_errors)
+        action = other_options[(2*action_i) : (2*action_i+2)]
         res = super().step(action)
         self.last_action = action
         return (res[0], res[1], res[2] or res[3], res[4])
-
 
     def render(self, mode="human"):
         if not hasattr(self, "n_success"):
             self.n_success = 0.
         if self.time*self.config["policy_frequency"] >= self.config["duration"]-1:
-            print(f"{self.road.vehicles[0].crashed} {self.road.vehicles[0].on_road} {self.observation_type.get_lane()}")
-            if (not self.road.vehicles[0].crashed) and (self.road.vehicles[0].on_road) and (self.observation_type.get_lane()==5):
+            print(f"{not self.road.vehicles[0].crashed} {self.road.vehicles[0].on_road} {self.observation_type.get_lane()}")
+            if (not self.road.vehicles[0].crashed) and (self.road.vehicles[0].on_road):
                 self.n_success += 1.
             print(f"{self.n_success / 100.}")
-        
-    
-    def close(self):
-      pass
+
+
 
 
 gym.register(

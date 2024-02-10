@@ -10,7 +10,7 @@ mm_headers = ["mm.a1", "mm.a2", "mm.a3", "mm.a4",
               "mm.d1", "mm.d2", "mm.d3", "mm.d4",
               "mm.e1", "mm.e2", "mm.e3", "mm.d4",]
 ha_headers = ["HA"]
-train_or_test = 0
+train_or_test = 2
 train_end = 10
 test_end = 20
 

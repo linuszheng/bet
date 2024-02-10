@@ -89,9 +89,9 @@ import envs.stopsign.stopsign
 import envs.stopsign.labelstopsign
 import envs.merge.merge
 import envs.merge.labelmerge
-# import envs.highway.highway
+import envs.highway.highway
 import envs.highway.labelhighway
-# import envs.pickplace.pickplace
-# import envs.pickplace.labelpickplace
-# import envs.stack.stack
-# import envs.stack.labelstack
+import envs.pickplace.pickplace
+import envs.pickplace.labelpickplace
+import envs.stack.stack
+import envs.stack.labelstack

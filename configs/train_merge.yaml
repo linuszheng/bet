@@ -12,7 +12,7 @@ lazy_init_models: True
 train_fraction: 0.95
 batch_size: 64
 num_workers: 32
-window_size: 1
+window_size: 3
 
 # Training details
 num_training_epochs: 1
@@ -21,16 +21,16 @@ device: cuda
 optim: Adam
 save_latents: False
 
-lr: 1e-4
-weight_decay: 0.2
+lr: .00001
+weight_decay: 0.025
 betas:
   - 0.9
   - 0.95
-grad_norm_clip: 1.0
+grad_norm_clip: 4.0
 seed: 42
 
 # Prior training details
-num_prior_epochs: 5000
+num_prior_epochs: 2990
 eval_prior_every: 1
 save_prior_every: 1
 

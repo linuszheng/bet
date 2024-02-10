@@ -1,17 +1,39 @@
-name: labelstack-v0
-# name: stack-v0
-obs_dim: 18
-action_dim: 2
-action_min: null
-action_max: null
+# name: labelstack-v0
+name: stack-v0
+obs_dim: 40
+action_dim: 4
+action_min: [-1,-1,-1,-1]
+action_max: [1,1,1,1]
 
-load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.28/194229_merge_train"
-
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/170133_stack_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/212035_stack_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/212058_stack_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.31/153143_stack_train"    # -5.1 source
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.31/153205_stack_train"    # -5.6
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.31/153224_stack_train"      # -5.4
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.31/154109_stack_train"      # -6.
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/183254_stack_train"      # -4.9 r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/183302_stack_train"      # -4.1 -> -4.8 r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/184330_stack_train"      # -5.5 -> -4.6 -> -4.2 r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/184415_stack_train"      # -4.2 -> -3.6 -> -4 r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/184848_stack_train"      # -3.4 -> -3.55 r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/185427_stack_train"        # -3.5 -> -3.25(about 50epochs) r
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/185830_stack_train"        # -3.1 -> -2.9 -> -3.1
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/190249_stack_train"        # -3.3 -> -3.1
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/190831_stack_train"        # -3.08
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/191521_stack_train"          # -3.3
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/191857_stack_train"        # -3.5
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/192422_stack_train"        # -4.0 -> -3.6
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/193227_stack_train"        # -3 -> -3.3 -> -3.6
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/193913_stack_train"        # -3 -> -3.3 -> -3 -> 
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/194856_stack_train"          # -4 -> -3 -> -2.9 -> -3.3 -> 3.9
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/200407_stack_train"
+load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.05/202527_stack_train"    # good: 28, -3
 
 workspace:
-  _target_: workspaces.merge.StackWorkspace
+  _target_: workspaces.stack.StackWorkspace
 
 dataset_fn:
   _target_: dataloaders.trajectory_loader.get_push_train_val
-  data_directory: ${env_vars.datasets.merge}
+  data_directory: ${env_vars.datasets.stack}
   window_size: ${window_size}

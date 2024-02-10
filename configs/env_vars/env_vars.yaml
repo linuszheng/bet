@@ -3,7 +3,11 @@ datasets:
   relay_kitchen: /home/linusjz/bet2/bet/bet_data_release/kitchen
   multimodal_push_fixed_target: /home/linusjz/bet2/bet/bet_data_release/blockpush
   stopsign: /home/linusjz/bet2/bet/plunder_data_release/e-1d-ss
-  merge: /home/linusjz/bet2/bet/plunder_data_release/a-2d-merge-easy
+  # merge: /home/linusjz/bet2/bet/plunder_data_release/a-2d-merge-easy
+  # merge: /home/linusjz/bet2/bet/plunder_data_release/b-2d-merge-medium
+  merge: /home/linusjz/bet2/bet/plunder_data_release/b-2d-merge-medium-large
+  # merge: /home/linusjz/bet2/bet/plunder_data_release/c-2d-merge-hard
+  # merge: /home/linusjz/bet2/bet/plunder_data_release/d-2d-merge-impossible
   highway: /home/linusjz/bet2/bet/plunder_data_release/f-2d-highway
   pickplace: /home/linusjz/bet2/bet/plunder_data_release/g-pick-place-policy
   stack: /home/linusjz/bet2/bet/plunder_data_release/i-stack

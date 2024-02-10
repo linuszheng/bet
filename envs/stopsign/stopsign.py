@@ -2,7 +2,7 @@ import numpy as np
 import gym
 from gym import spaces
 from .settings import numHA, n_timesteps, pv_stddev, motor_model
-
+from scipy.stats import norm
 
 EPSILON = 10E-10
 
@@ -25,6 +25,7 @@ class StopSignEnv(gym.Env):
       self.action_space = spaces.Box(shape=(1,), low=np.array([-40]), high=np.array([40]), dtype=np.float32)
       self.t = 0
       self.action_list = []
+      self.n_success = 0.
 
     def config(self, decMax, accMax, vMax, target):
       self.decMax = float(decMax)
@@ -43,6 +44,7 @@ class StopSignEnv(gym.Env):
 
     def reset(self, seed=None, options=None):
       # super().reset(seed=seed)
+      self.sanity()
       self.pos = 0.
       self.vel = 0.
       self.acc = 0.
@@ -52,7 +54,7 @@ class StopSignEnv(gym.Env):
 
     def step(self, action):
       prev_vel = self.vel
-      self.acc = action
+      self.acc = action+norm.rvs(size=1)
       self.vel = self.vel+self.acc*self.dt
       if self.vel < EPSILON:
         self.vel = 0
@@ -65,11 +67,19 @@ class StopSignEnv(gym.Env):
         self.acc = 1.
       self.t += 1
       self.action_list.append(self.acc)
-      print(self.acc)
       return self._get_obs(), 0, self.t > n_timesteps, self._get_info()
 
     def render(self, mode="human"):
-      print(self._get_obs())
+      pass
+
+    def sanity(self):
+      obs = self._get_obs()
+      print(obs)
+      if self.pos < 140 and self.pos > 60 and abs(self.vel) < 0.1:
+        self.n_success += 1
+        print(f"SUCCESS {self.n_success}")
+      else:
+        print(f"FAILURE {self.n_success}")
     
     def close(self):
       # print(self.action_list)

@@ -1,32 +1,14 @@
 name: labelstopsign-v0
 obs_dim: 10
 action_dim: 1
-action_min: null
-action_max: null
+action_min: [-50]
+action_max: [50]
 
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/193405_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/194706_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/200736_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/201058_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/201503_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/202502_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/202841_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/203148_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/203631_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/204245_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/205620_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/210709_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/210731_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/230929_stopsign_train"
-load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/232848_stopsign_train"   # GOOD
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/233047_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/233458_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.22/234016_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.23/120645_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.23/123842_stopsign_train"   # GOOD
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.23/153010_stopsign_train"     # GOOD
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.23/162353_stopsign_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.23/164209_stopsign_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/014608_stopsign_train"   # -2.3
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/124947_stopsign_train"   # 
+load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/124913_stopsign_train"     # -2.18
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/134127_stopsign_train"       # -.2.2
+
 
 workspace:
   _target_: workspaces.stopsign.StopSignWorkspace

@@ -1,16 +1,19 @@
-name: labelmerge-v0
-# name: merge-v0
+# name: labelmerge-v0
+name: merge-v0
 obs_dim: 30
 action_dim: 2
 action_min: [-.3, -30]
 action_max: [.3, 30]
 
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/173747_merge_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/175018_merge_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/181911_merge_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/230317_merge_train"
-load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.29/234111_merge_train"
-# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.01.30/001024_merge_train"
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/204228_merge_train"      # (a) 0.29265693160409223
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/221529_merge_train"       # (a)
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/222241_merge_train"       #(b) -0.6292229428820788
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/222617_merge_train"     #(b) -0.79(280ish)  -.35(300)    -.17(352)   -.005(440)  .23(610)
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/235101_merge_train"     #(c) -.56
+load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.06/235311_merge_train"     #(d) -1.14
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/001944_merge_train"    #(a-focalloss)   .7(397)
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/010238_merge_train"    #(a-12layer)
+# load_dir: "/home/linusjz/bet2/bet/exp_local/2024.02.07/130050_merge_train"
 
 workspace:
   _target_: workspaces.merge.MergeWorkspace
